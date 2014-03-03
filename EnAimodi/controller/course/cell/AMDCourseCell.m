@@ -108,7 +108,8 @@
         hard_normal.image = [UIImage imageNamed:@"Icon_Level_2@2x.png"];
         hard_difficulty.image = [UIImage imageNamed:@"Icon_Level_3_Hit@2x.png"];
     }
-    course_image.image = [UIImage imageNamed:@"Bg_ModuleActive@2x.png"];
+//    course_image.image = [UIImage imageNamed:@"Bg_ModuleActive@2x.png"];
+    course_image.image = [UIImage imageNamed:model.course_image];
     course_hot_new.image = [UIImage imageNamed:@"Icon_New_L@2x.png"];
 }
 @end

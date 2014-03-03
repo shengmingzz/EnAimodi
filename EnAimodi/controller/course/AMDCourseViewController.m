@@ -9,6 +9,9 @@
 #import "AMDCourseViewController.h"
 #import "AMDCourseCell.h"
 #import "AMDCourseModel.h"
+
+#import "AMDStudyListViewController.h"
+#import "FlipBoardNavigationController.h"
 @interface AMDCourseViewController ()
 
 @end
@@ -29,11 +32,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     baseArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<20; i++) {
+    for (int i=0; i<10; i++) {
         AMDCourseModel *model = [[AMDCourseModel alloc] init];
         model.course_hard_type = Course_Hard_easy;
         model.course_title = @"驾车考试";
         model.course_descript = @"你开车吗?开车时有没有什么事情让你头痛的呢?今天我们来看看开车可能要遇到的麻烦事吧.";
+        model.course_image = [NSString stringWithFormat:@"0%d.jpg",i];
         [baseArray addObject:model];
     }
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -78,6 +82,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AMDStudyListViewController *listCtrl = [[AMDStudyListViewController alloc]init];
+    UINavigationController *naviCtrol = [[UINavigationController alloc] initWithRootViewController:listCtrl];
+    [self.parentViewController.flipboardNavigationController pushViewController:naviCtrol];
+    naviCtrol.navigationBar.translucent = NO;
+    [listCtrl release];
+    [naviCtrol release];
 }
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView *)view

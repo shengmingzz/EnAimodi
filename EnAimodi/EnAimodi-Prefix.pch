@@ -15,4 +15,5 @@
     #import <Foundation/Foundation.h>
     #import "AMDHeader.h"
     #import "Dialog.h"
+    #import "AMDUtil.h"
 #endif

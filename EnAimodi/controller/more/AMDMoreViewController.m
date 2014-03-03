@@ -9,6 +9,8 @@
 #import "AMDMoreViewController.h"
 #import "FlipBoardNavigationController.h"
 #import "AMDMoreCell.h"
+#import "AMDSettingViewController.h"
+#import "AMDAboutViewController.h"
 @interface AMDMoreViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray * _aboutTitles;
@@ -113,6 +115,23 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1 && indexPath.row == 2) {
+        AMDAboutViewController *about = [[AMDAboutViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        UINavigationController *naviCtrol = [[UINavigationController alloc] initWithRootViewController:about];
+        [self.parentViewController.flipboardNavigationController pushViewController:naviCtrol];
+        [about release];
+        [naviCtrol release];
+        return;
+    }
+    if (indexPath.section == 1 && indexPath.row == 5) {
+        AMDSettingViewController *setting = [[AMDSettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        UINavigationController *naviCtrol = [[UINavigationController alloc] initWithRootViewController:setting];
+        [self.parentViewController.flipboardNavigationController pushViewController:naviCtrol];
+        [setting release];
+        [naviCtrol release];
+        return;
+    }
+    
     UIViewController *page = [[UIViewController alloc]init];
     [page.view setBackgroundColor:[UIColor blueColor]];
     UINavigationController *naviCtrol = [[UINavigationController alloc] initWithRootViewController:page];

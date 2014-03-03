@@ -8,6 +8,8 @@
 
 #import "AMDSortViewController.h"
 #import "AMDSortToolbar.h"
+#import "AMDSortCell.h"
+#import "SortModel.h"
 @interface AMDSortViewController ()
 {
     NSMutableArray *arraySort;
@@ -45,23 +47,43 @@
 	// Do any additional setup after loading the view.
     arraySort = [[NSMutableArray alloc] init];
     for (int i=0; i<20; i++) {
-        [arraySort addObject:[NSString stringWithFormat:@"arraySort--0 -- %d",i]];
+        SortModel *model = [[SortModel alloc] init];
+        model.sortName = [NSString stringWithFormat:@"非鱼-0-%d",i];
+        model.sortValue = 500 - i*20;
+        [arraySort addObject:model];
+        [model release];
     }
     arraySort1 = [[NSMutableArray alloc] init];
     for (int i=0; i<20; i++) {
-        [arraySort1 addObject:[NSString stringWithFormat:@"arraySort--1 -- %d",i]];
+        SortModel *model = [[SortModel alloc] init];
+        model.sortName = [NSString stringWithFormat:@"叶开-1-%d",i];
+        model.sortValue = 10000 - i*300;
+        [arraySort1 addObject:model];
+        [model release];
     }
     arraySort2 = [[NSMutableArray alloc] init];
     for (int i=0; i<20; i++) {
-        [arraySort2 addObject:[NSString stringWithFormat:@"arraySort--2 -- %d",i]];
+        SortModel *model = [[SortModel alloc] init];
+        model.sortName = [NSString stringWithFormat:@"非墨-2-%d",i];
+        model.sortValue = 200 - i*7;
+        [arraySort2 addObject:model];
+        [model release];
     }
     arraySort3 = [[NSMutableArray alloc] init];
     for (int i=0; i<20; i++) {
-        [arraySort3 addObject:[NSString stringWithFormat:@"arraySort--3 -- %d",i]];
+        SortModel *model = [[SortModel alloc] init];
+        model.sortName = [NSString stringWithFormat:@"蜜蜂-3-%d",i];
+        model.sortValue = 200 - i*7;
+        [arraySort3 addObject:model];
+        [model release];
     }
     arraySort4 = [[NSMutableArray alloc] init];
     for (int i=0; i<20; i++) {
-        [arraySort4 addObject:[NSString stringWithFormat:@"arraySort--4 -- %d",i]];
+        SortModel *model = [[SortModel alloc] init];
+        model.sortName = [NSString stringWithFormat:@"阿北-4-%d",i];
+        model.sortValue = 200 - i*7;
+        [arraySort4 addObject:model];
+        [model release];
     }
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height-44)];
@@ -126,27 +148,109 @@
     }
     return [arraySort count];
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    AMDSortCell *sortcell = (AMDSortCell*)cell;
+    float red=0.0,green=0.0,blue=0.0;
+    if (_currentPage == 0) {
+        red = 38 + (156-38)*indexPath.row/[arraySort count];
+        green = 154 + (189-154)*indexPath.row/[arraySort count];
+        blue = 190 + (200-190)*indexPath.row/[arraySort count];
+        sortcell.labelNum.backgroundColor = ColorRGB(red,green,blue);//156,189,200
+        red = 48 + (195-48)*indexPath.row/[arraySort count];
+        green = 192 + (236-192)*indexPath.row/[arraySort count];
+        blue = 236 + (249-236)*indexPath.row/[arraySort count];
+        sortcell.backColor.backgroundColor = ColorRGB(red,green,blue);//195,236,249
+    }else if (_currentPage == 1){
+        red = 207.0 - (207-205)*indexPath.row/[arraySort1 count];
+        green = 120.0 + (178-120.0)*indexPath.row/[arraySort1 count];
+        blue = 40 + (146-40)*indexPath.row/[arraySort1 count];
+        sortcell.labelNum.backgroundColor = ColorRGB(red,green,blue);
+        red = 255 + (255-255)*indexPath.row/[arraySort1 count];
+        green = 153 + (223-153)*indexPath.row/[arraySort1 count];
+        blue = 51 + (183-51)*indexPath.row/[arraySort1 count];
+        sortcell.backColor.backgroundColor = ColorRGB(red,green,blue);//255,223,183
+    }else if (_currentPage == 2){
+        red = 178 + (196-178)*indexPath.row/[arraySort2 count];
+        green = 65 + (161-65)*indexPath.row/[arraySort2 count];
+        blue = 190 + (199-190)*indexPath.row/[arraySort2 count];
+        sortcell.labelNum.backgroundColor = ColorRGB(red,green,blue);
+        red = 221 + (246-221)*indexPath.row/[arraySort2 count];
+        green = 81 + (202-81)*indexPath.row/[arraySort2 count];
+        blue = 231 + (249-231)*indexPath.row/[arraySort2 count];
+        sortcell.backColor.backgroundColor = ColorRGB(red,green,blue);//246,202,249
+    }else if (_currentPage == 3){
+        red = 87 + (168-87)*indexPath.row/[arraySort3 count];
+        green = 167 + (193-167)*indexPath.row/[arraySort3 count];
+        blue = 57 + (153-57)*indexPath.row/[arraySort3 count];
+        sortcell.labelNum.backgroundColor = ColorRGB(red,green,blue);
+        red = 109 + (211-109)*indexPath.row/[arraySort3 count];
+        green = 240 + (240-209)*indexPath.row/[arraySort3 count];
+        blue = 72 + (191-72)*indexPath.row/[arraySort3 count];
+        sortcell.backColor.backgroundColor = ColorRGB(red,green,blue);//211,240,191
+    }else if (_currentPage == 4){
+        red = 69 + (162-69)*indexPath.row/[arraySort4 count];
+        green = 69 + (162-69)*indexPath.row/[arraySort4 count];
+        blue = 175 + (195-175)*indexPath.row/[arraySort4 count];
+        sortcell.labelNum.backgroundColor = ColorRGB(red,green,blue);
+        red = 86 + (203-86)*indexPath.row/[arraySort4 count];
+        green = 86 + (203-86)*indexPath.row/[arraySort4 count];
+        blue = 219 + (243-219)*indexPath.row/[arraySort4 count];
+        sortcell.backColor.backgroundColor = ColorRGB(red,green,blue);//203,203,243
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"CollectCellIdentifier";
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    AMDSortCell *cell = (AMDSortCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier]autorelease];
+        cell = [[[AMDSortCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier]autorelease];
     }
-    NSString *string = @"";
+    cell.labelNum.text = [NSString stringWithFormat:@"%d",indexPath.row+1];
+    cell.imagePhoto.image = [UIImage imageNamed:@"default_avatar.png"];
+
     if (_currentPage == 0) {
-        string = [arraySort objectAtIndex:indexPath.row];
+        SortModel *model = [arraySort objectAtIndex:indexPath.row];
+        cell.labelName.text = model.sortName;
+        cell.labelSort.text = [NSString stringWithFormat:@"%ld颗星",model.sortValue];
+        
+        float max = ((SortModel *)[arraySort objectAtIndex:0]).sortValue;
+        float backwidth = ((cell.frame.size.width -44)*1.0*model.sortValue/max);
+        cell.backColor.frame = CGRectMake(cell.backColor.frame.origin.x, cell.backColor.frame.origin.y, backwidth, cell.backColor.frame.size.height);
     }else if (_currentPage == 1){
-        string = [arraySort1 objectAtIndex:indexPath.row];
+        SortModel *model = [arraySort1 objectAtIndex:indexPath.row];
+        cell.labelName.text = model.sortName;
+        cell.labelSort.text = [NSString stringWithFormat:@"%ld金币",model.sortValue];
+        
+        float max = ((SortModel *)[arraySort1 objectAtIndex:0]).sortValue;
+        float backwidth = ((cell.frame.size.width -44)*1.0*model.sortValue/max);
+        cell.backColor.frame = CGRectMake(cell.backColor.frame.origin.x, cell.backColor.frame.origin.y, backwidth, cell.backColor.frame.size.height);
     }else if (_currentPage == 2){
-        string = [arraySort2 objectAtIndex:indexPath.row];
+        SortModel *model = [arraySort2 objectAtIndex:indexPath.row];
+        cell.labelName.text = model.sortName;
+        cell.labelSort.text = [NSString stringWithFormat:@"连续%ld天",model.sortValue];
+        
+        float max = ((SortModel *)[arraySort2 objectAtIndex:0]).sortValue;
+        float backwidth = ((cell.frame.size.width -44)*1.0*model.sortValue/max);
+        cell.backColor.frame = CGRectMake(cell.backColor.frame.origin.x, cell.backColor.frame.origin.y, backwidth, cell.backColor.frame.size.height);
     }else if (_currentPage == 3){
-        string = [arraySort3 objectAtIndex:indexPath.row];
+        SortModel *model = [arraySort3 objectAtIndex:indexPath.row];
+        cell.labelName.text = model.sortName;
+        cell.labelSort.text = [NSString stringWithFormat:@"连闯%ld关",model.sortValue];
+        
+        float max = ((SortModel *)[arraySort3 objectAtIndex:0]).sortValue;
+        float backwidth = ((cell.frame.size.width -44)*1.0*model.sortValue/max);
+        cell.backColor.frame = CGRectMake(cell.backColor.frame.origin.x, cell.backColor.frame.origin.y, backwidth, cell.backColor.frame.size.height);
     }else if (_currentPage == 4){
-        string = [arraySort4 objectAtIndex:indexPath.row];
+        SortModel *model = [arraySort4 objectAtIndex:indexPath.row];
+        cell.labelName.text = model.sortName;
+        cell.labelSort.text = [NSString stringWithFormat:@"%ld分钟",model.sortValue];
+        
+        float max = ((SortModel *)[arraySort4 objectAtIndex:0]).sortValue;
+        float backwidth = ((cell.frame.size.width -44)*1.0*model.sortValue/max);
+        cell.backColor.frame = CGRectMake(cell.backColor.frame.origin.x, cell.backColor.frame.origin.y, backwidth, cell.backColor.frame.size.height);
     }
-    cell.textLabel.text = string;
+
     return cell;
 }
 
@@ -160,6 +264,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    QiuShiDetailViewController *detailVC = [[QiuShiDetailViewController alloc] initWithNibName:@"QiuShiDetailViewController" bundle:nil];
 //    QiuShi *qs = (QiuShi *)[_articlesArray objectAtIndex:indexPath.row];
 //    detailVC.qiushi = qs;

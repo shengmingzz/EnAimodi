@@ -9,6 +9,9 @@
 #import "AMDStudyViewController.h"
 #import "AMDStudyModel.h"
 #import "AMDStudyCell.h"
+
+#import "AMDStudyListViewController.h"
+#import "FlipBoardNavigationController.h"
 @interface AMDStudyViewController ()
 
 @end
@@ -36,10 +39,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     _baseArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<10; i++) {
         AMDStudyModel *model = [[AMDStudyModel alloc] init];
         model.course_title = @"50个州";
-        model.course_image = @"bg_dashboard_default@2x.jpg";
+//        model.course_image = @"bg_dashboard_default@2x.jpg";
+        model.course_image = [NSString stringWithFormat:@"0%d.jpg",i];//@"bg_dashboard_default@2x.jpg";
         model.course_date = @"20天前";
         model.course_finish_per = @"10%完成";
         model.course_star_label = @"1/30";
@@ -96,6 +100,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    AMDStudyListViewController *listCtrl = [[AMDStudyListViewController alloc]init];
+    UINavigationController *naviCtrol = [[UINavigationController alloc] initWithRootViewController:listCtrl];
+    [self.parentViewController.flipboardNavigationController pushViewController:naviCtrol];
+    naviCtrol.navigationBar.translucent = NO;
+    [listCtrl release];
+    [naviCtrol release];
 }
 
 -(void) cellButton:(id)cell
